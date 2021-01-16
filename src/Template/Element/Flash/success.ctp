@@ -1,11 +1,17 @@
-<?php
-/**
- * @var \App\View\AppView $this
- * @var array $params
- * @var string $message
- */
-if (!isset($params['escape']) || $params['escape'] !== false) {
-    $message = h($message);
-}
-?>
-<div class="message success" onclick="this.classList.add('hidden')"><?= $message ?></div>
+<script type="text/javascript">
+	$.notify({
+		icon:"fas fa-check-circle",
+		message: "<?= $message ?>"
+	},{
+		allow_dismiss: true,
+		type: 'info',
+		animate: {
+			enter: 'animated fadeInDown',
+			exit: 'animated fadeOutUp'
+		},
+		placement: {
+			from: 'top',
+			align: 'center'
+		}
+	});
+</script>
