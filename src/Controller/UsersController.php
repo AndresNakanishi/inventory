@@ -15,7 +15,7 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow(['login','add']);
+        $this->Auth->allow(['login','add','createFirstUser']);
     }
 
     // LOGIN //
@@ -133,5 +133,25 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function createFirstUser()
+    {
+        $this->autoRender = false;
+        $users = $this->Users->find('all')->count();
+
+        if($users == 0){
+            $user = $this->Users->newEntity();
+            $user->profile_id = 1;
+            $user->name = "Ricardo Andres";
+            $user->surname = "Nakanishi";
+            $user->dni = "40882532";
+            $user->email = "andresnakanishi@gmail.com";
+            $user->password = $user->dni;
+            if ($this->Users->save($user)) {
+                return $this->redirect(['action' => 'login']);
+            }
+        }
+        return $this->redirect(['controller' => 'Pages','action' => 'home']);
     }
 }
