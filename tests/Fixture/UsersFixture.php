@@ -17,13 +17,14 @@ class UsersFixture extends TestFixture
     public $fields = [
         'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'profile_id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'name' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => null, 'collate' => 'cp932_japanese_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'surname' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => null, 'collate' => 'cp932_japanese_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'email' => ['type' => 'string', 'length' => 200, 'null' => false, 'default' => null, 'collate' => 'cp932_japanese_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'dni' => ['type' => 'string', 'length' => 11, 'null' => false, 'default' => null, 'collate' => 'cp932_japanese_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'password' => ['type' => 'string', 'length' => 200, 'null' => false, 'default' => null, 'collate' => 'cp932_japanese_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'cellphone' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => null, 'collate' => 'cp932_japanese_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
-        'address' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'cp932_japanese_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'name' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'surname' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'email' => ['type' => 'string', 'length' => 200, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'dni' => ['type' => 'string', 'length' => 11, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'password' => ['type' => 'string', 'length' => 200, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'cellphone' => ['type' => 'string', 'length' => 45, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'address' => ['type' => 'string', 'length' => 100, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
+        'avatar' => ['type' => 'string', 'length' => 200, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null, 'fixed' => null],
         '_indexes' => [
             'fk_user_profile_idx' => ['type' => 'index', 'columns' => ['profile_id'], 'length' => []],
         ],
@@ -35,7 +36,7 @@ class UsersFixture extends TestFixture
         ],
         '_options' => [
             'engine' => 'InnoDB',
-            'collation' => 'cp932_japanese_ci'
+            'collation' => 'utf8_general_ci'
         ],
     ];
     // @codingStandardsIgnoreEnd
@@ -57,6 +58,7 @@ class UsersFixture extends TestFixture
                 'password' => 'Lorem ipsum dolor sit amet',
                 'cellphone' => 'Lorem ipsum dolor sit amet',
                 'address' => 'Lorem ipsum dolor sit amet',
+                'avatar' => 'Lorem ipsum dolor sit amet',
             ],
         ];
         parent::init();

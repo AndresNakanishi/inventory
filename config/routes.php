@@ -63,6 +63,7 @@ Router::scope('/', function (RouteBuilder $routes) {
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
     $routes->connect('/', ['controller' => 'Pages', 'action' => 'home']);
+    $routes->connect('/dashboard', ['controller' => 'Users', 'action' => 'dashboard']);
 
     /*
      * Connect catchall routes for all controllers.

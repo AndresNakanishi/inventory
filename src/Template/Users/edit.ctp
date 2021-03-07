@@ -1,38 +1,96 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\User $user
- */
+    $this->assign('title', $title);
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $user->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Profiles'), ['controller' => 'Profiles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Profile'), ['controller' => 'Profiles', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
-    <fieldset>
-        <legend><?= __('Edit User') ?></legend>
-        <?php
-            echo $this->Form->control('profile_id', ['options' => $profiles]);
-            echo $this->Form->control('name');
-            echo $this->Form->control('surname');
-            echo $this->Form->control('email');
-            echo $this->Form->control('dni');
-            echo $this->Form->control('password');
-            echo $this->Form->control('cellphone');
-            echo $this->Form->control('address');
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+<!-- Page Heading -->
+<h1 class="h3 mb-2 text-gray-800"><?= $title ?></h1>
+<hr>
+
+<div class="panel panel-default mb-5">
+  <div class="panel-body">
+    <div class="col-lg-6 col-sm-6">
+      <?= $this->Form->create($user) ?>
+        <div class="form-group">
+          <?= $this->Form->control('profile_id', [
+            'options' => $profiles,
+            'class' => 'form-control',
+            'label' => [
+              'class' => 'control-label',
+              'text' => 'Perfil: (Requerido)',
+            ],
+            'required'
+          ]) ?>
+        </div>
+        <div class="form-group">
+            <?= $this->Form->control('name', [
+                'class' => 'form-control',
+                'label' => [
+                    'class' => 'control-label',
+                    'text' => 'Nombre: (Requerido)',
+                ],
+                'required',
+                'placeholder' => 'Escribe el nombre del cliente',
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?= $this->Form->control('surname', [
+                'class' => 'form-control',
+                'label' => [
+                    'class' => 'control-label',
+                    'text' => 'Apellido: (Requerido)',
+                ],
+                'required',
+                'placeholder' => 'Escribe el apellido del cliente',
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?= $this->Form->control('dni', [
+                'class' => 'form-control',
+                'label' => [
+                    'class' => 'control-label',
+                    'text' => 'DNI: (Requerido)',
+                ],
+                'required',
+                'placeholder' => 'Escribe el DNI del cliente',
+                'max' => 11
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?= $this->Form->control('address', [
+                'class' => 'form-control',
+                'label' => [
+                    'class' => 'control-label',
+                    'text' => 'Dirección:',
+                ],
+                'placeholder' => 'Escribe la dirección del cliente',
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?= $this->Form->control('email', [
+                'class' => 'form-control',
+                'type' => 'email',
+                'label' => [
+                    'class' => 'control-label',
+                    'text' => 'E-mail:',
+                ],
+                'placeholder' => 'Escribe el mail del cliente',
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?= $this->Form->control('cellphone', [
+                'class' => 'form-control',
+                'label' => [
+                    'class' => 'control-label',
+                    'text' => 'Celular:',
+                ],
+                'placeholder' => 'Escribe el celular del cliente',
+            ]) ?>
+        </div>
+        <div class="d-flex">
+          <?= $this->Html->link(__('Volver'), ['action' => 'index'], ['class' => "btn btn-default text-primary"]) ?>
+          <?= $this->Form->submit('Guardar', ['class' => "btn btn-primary"]) ?>
+        </div>
+      <?= $this->Form->end() ?>
+    </div>
+  </div>
+  <!-- /.panel-body -->
 </div>

@@ -1,63 +1,41 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
- */
+  $this->assign('title', $title);
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Profiles'), ['controller' => 'Profiles', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Profile'), ['controller' => 'Profiles', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="users index large-9 medium-8 columns content">
-    <h3><?= __('Users') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+<?= $this->Html->link(__('Nuevo Cliente'), ['action' => 'add'], ['class' => 'button btn-primary btn-sm float-right']) ?>
+<h1 class="h3 mb-2 text-gray-800"><?= $title ?></h1>
+<hr>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary"><?= $title ?></h6>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
-            <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('profile_id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('surname') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('dni') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('cellphone') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('address') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
-            </tr>
+          <tr>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Dirección</th>
+            <th>Celular</th>
+            <th>Acciones</th>
+          </tr>
         </thead>
         <tbody>
-            <?php foreach ($users as $user): ?>
-            <tr>
-                <td><?= $this->Number->format($user->id) ?></td>
-                <td><?= $user->has('profile') ? $this->Html->link($user->profile->name, ['controller' => 'Profiles', 'action' => 'view', $user->profile->id]) : '' ?></td>
-                <td><?= h($user->name) ?></td>
-                <td><?= h($user->surname) ?></td>
-                <td><?= h($user->email) ?></td>
-                <td><?= h($user->dni) ?></td>
-                <td><?= h($user->password) ?></td>
-                <td><?= h($user->cellphone) ?></td>
-                <td><?= h($user->address) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $user->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
+          <?php foreach ($users as $user): ?>
+          <tr>
+            <td><?= $user->name ." ". $user->surname ?></td>
+            <td><?= h($user->dni) ?></td>
+            <td><?= h($user->address) ?></td>
+            <td><?= h($user->cellphone) ?></td>
+            <td class="actions">
+              <?= $this->Html->link(__('Ver sus datos'), ['action' => 'view', $user->id],  ['class' => 'btn btn-sm btn-primary']) ?>
+              <?= $this->Html->link(__('Editar'), ['action' => 'edit', $user->id],  ['class' => 'btn btn-sm btn-primary']) ?>
+            </td>
+          </tr>            
+          <?php endforeach; ?>
         </tbody>
-    </table>
-    <div class="paginator">
-        <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
-            <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
-        </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
+      </table>
     </div>
+  </div>
 </div>

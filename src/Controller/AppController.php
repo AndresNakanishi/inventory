@@ -29,64 +29,62 @@ use Cake\ORM\TableRegistry;
  */
 class AppController extends Controller
 {
+  /**
+   * Initialization hook method.
+   *
+   * Use this method to add common initialization code like loading components.
+   *
+   * e.g. `$this->loadComponent('Security');`
+   *
+   * @return void
+   */
+  public function initialize()
+  {
+    parent::initialize();
 
-    /**
-     * Initialization hook method.
-     *
-     * Use this method to add common initialization code like loading components.
-     *
-     * e.g. `$this->loadComponent('Security');`
-     *
-     * @return void
-     */
-    public function initialize()
-    {
-        parent::initialize();
+    $this->loadComponent('RequestHandler', [
+        'enableBeforeRedirect' => false,
+    ]);
+    $this->loadComponent('Flash');
+    $this->loadComponent('Auth', [
+      'authenticate' => [
+        'Form' => [
+          'fields' => [
+            'username' => 'dni',
+            'password' => 'password'
+          ]
+        ]
+      ],
+      'loginAction' => [
+        'controller' => 'Users',
+        'action' => 'login'
+      ],
+      'loginRedirect' => [
+        'controller' => 'Users',
+        'action' => 'dashboard',
+      ],
+      'logoutRedirect' => [
+        'controller' => 'Users',
+        'action' => 'login',
+      ],
+      'authError' => 'No tiene permiso para acceder a la página solicitada.',
+    ]);
 
-        $this->loadComponent('RequestHandler', [
-            'enableBeforeRedirect' => false,
-        ]);
-        $this->loadComponent('Flash');
-        $this->loadComponent('Auth', [
-            'authenticate' => [
-                'Form' => [
-                    'fields' => [
-                        'username' => 'dni',
-                        'password' => 'password'
-                    ]
-                ]
-            ],
-            'loginAction' => [
-                'controller' => 'Users',
-                'action' => 'login'
-            ],
-            'loginRedirect' => [
-                'controller' => 'Users',
-                'action' => 'index',
-            ],
-            'logoutRedirect' => [
-                'controller' => 'Users',
-                'action' => 'login',
-            ],
-            'authError' => 'No tiene permiso para acceder a la página solicitada.',
-        ]);
+    /*
+      * Enable the following component for recommended CakePHP security settings.
+      * see https://book.cakephp.org/3/en/controllers/components/security.html
+      */
+    //$this->loadComponent('Security');
+  }
 
-        /*
-         * Enable the following component for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3/en/controllers/components/security.html
-         */
-        //$this->loadComponent('Security');
+  public function beforeFilter(Event $event)
+  {
+    parent::beforeFilter($event);
+    if (!is_null($this->Auth->user('id'))) {
+      $user = User::get_user($this->Auth->user('id'));
+      $userProfileCode = $user->profile->code;
+      $this->set('Auth', $this->Auth);
+      $this->set('userProfileCode', $userProfileCode);
     }
-
-    public function beforeFilter(Event $event)
-    {
-        parent::beforeFilter($event);
-        if (!is_null($this->Auth->user('id'))) {
-            $user = User::get_user($this->Auth->user('id'));
-            $userProfileCode = $user->profile->code;
-            $this->set('Auth', $this->Auth);
-            $this->set('userProfileCode', $userProfileCode);
-        }
-
-    }
+  }
 }

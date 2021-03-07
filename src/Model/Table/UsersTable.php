@@ -97,6 +97,12 @@ class UsersTable extends Table
             ->requirePresence('address', 'create')
             ->notEmptyString('address');
 
+        $validator
+            ->scalar('avatar')
+            ->maxLength('avatar', 200)
+            ->requirePresence('avatar', 'create')
+            ->notEmptyString('avatar');
+
         return $validator;
     }
 

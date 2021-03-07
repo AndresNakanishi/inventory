@@ -1,58 +1,34 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\User $user
- */
+  $this->assign('title', $title);
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit User'), ['action' => 'edit', $user->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete User'), ['action' => 'delete', $user->id], ['confirm' => __('Are you sure you want to delete # {0}?', $user->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Profiles'), ['controller' => 'Profiles', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Profile'), ['controller' => 'Profiles', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="users view large-9 medium-8 columns content">
-    <h3><?= h($user->name) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('Profile') ?></th>
-            <td><?= $user->has('profile') ? $this->Html->link($user->profile->name, ['controller' => 'Profiles', 'action' => 'view', $user->profile->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Name') ?></th>
-            <td><?= h($user->name) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Surname') ?></th>
-            <td><?= h($user->surname) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Email') ?></th>
-            <td><?= h($user->email) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Dni') ?></th>
-            <td><?= h($user->dni) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Password') ?></th>
-            <td><?= h($user->password) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Cellphone') ?></th>
-            <td><?= h($user->cellphone) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Address') ?></th>
-            <td><?= h($user->address) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($user->id) ?></td>
-        </tr>
-    </table>
+<h1 class="h3 mb-2 text-gray-800"><?= $title ?></h1>
+<hr>
+<!-- DataTales Example -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary"><?= $title ?></h6>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-sm-6 col-md-2">
+        <img src="<?= $user->avatar ?>" alt="<?= $user->name." ".$user->surname; ?>" class="img-rounded img-responsive" />
+      </div>
+      <div class="col-sm-6 col-md-10">
+        <h4><?= $user->name." ".$user->surname; ?></h4>
+        <hr>
+        <p>
+          <b>DNI:</b>
+          <?= $user->dni ?>
+        </p>
+        <p>
+          <b>Email:</b>
+          <?= $user->email ?>
+        </p>
+        <p>
+          <b>Celular:</b>
+          <?= $user->cellphone ?>
+        </p>
+      </div>
+    </div>
+  </div>
 </div>

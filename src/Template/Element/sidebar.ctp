@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= $this->Url->build(["controller" => "Pages", "action" => "home"]) ?>">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<?= $this->Url->build(["controller" => "Users", "action" => "dashboard"]) ?>">
         <div class="sidebar-brand-icon rotate-n-15">
           <i class="fas fa-dumbbell"></i>
         </div>
@@ -14,7 +14,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item">
-        <a class="nav-link" href="<?= $this->Url->build(["controller" => "Pages", "action" => "home"]) ?>">
+        <a class="nav-link" href="<?= $this->Url->build(["controller" => "Users", "action" => "dashboard"]) ?>">
             <i class="fas fa-fw fa-home"></i>
             <span>Inicio</span>
         </a>
@@ -50,17 +50,17 @@
 
     <!-- Nav Item - Usuarios -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= $this->Url->build(["controller" => "Users", "action" => "index"]) ?>">
             <i class="fas fa-fw fa-users"></i>
-            <span>Clientes</span>
+            <span>Usuarios</span>
         </a>
     </li>
 
     <!-- Nav Item - Usuarios -->
     <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="<?= $this->Url->build(["controller" => "Profiles", "action" => "index"]) ?>">
             <i class="fas fa-id-card"></i>
-            <span>Membresías</span>
+            <span>Perfiles</span>
         </a>
     </li>
 
