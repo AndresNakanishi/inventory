@@ -400,5 +400,9 @@ return [
      */
     'Session' => [
         'defaults' => 'php',
+        'timeout' => 60*24,
+        'cookieTimeout' => 60*6,
+        'checkAgent' => false,
+        'autoRegenerate' => true,
     ],
 ];
