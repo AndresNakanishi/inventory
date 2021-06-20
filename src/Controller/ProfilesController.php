@@ -12,8 +12,10 @@ use App\Controller\AppController;
  */
 class ProfilesController extends AppController
 {
-  
-  private $errorMessage = "Ups hubo un problema. Intente más tarde";
+  public function isAuthorized($user)
+  {
+    return parent::isAuthorized($user);
+  }
 
   /**
    * Index method
@@ -43,7 +45,7 @@ class ProfilesController extends AppController
 
         return $this->redirect(['action' => 'index']);
       }
-      $this->Flash->error(__($errorMessage));
+      $this->Flash->error(__('Ups. Hubo un problema.'));
     }
     $this->set(compact('profile'));
     $this->set('title', 'Agregar Perfil');
@@ -68,7 +70,7 @@ class ProfilesController extends AppController
 
         return $this->redirect(['action' => 'index']);
       }
-      $this->Flash->error(__($errorMessage));
+      $this->Flash->error(__('Ups. Hubo un problema.'));
     }
     $this->set(compact('profile'));
     $this->set('title', "Editar perfil: $profile->name");
@@ -88,7 +90,7 @@ class ProfilesController extends AppController
     if ($this->Profiles->delete($profile)) {
       $this->Flash->success(__('El perfil fue eliminado correctamente.'));
     } else {
-      $this->Flash->error(__($errorMessage));
+      $this->Flash->error(__('Ups. Hubo un problema.'));
     }
 
     return $this->redirect(['action' => 'index']);

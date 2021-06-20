@@ -19,6 +19,17 @@
             ],
             'required'
           ]) ?>
+        </div>        
+        <div class="form-group">
+            <?= $this->Form->control('branch_id', [
+                'options' => $branches,
+                'empty' => true,
+                'class' => 'form-control',
+                'label' => [
+                    'class' => 'control-label',
+                    'text' => 'Sucursal: (Requerido)',
+                ],
+            ]) ?>
         </div>
         <div class="form-group">
             <?= $this->Form->control('name', [

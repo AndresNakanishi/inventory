@@ -10,6 +10,7 @@ use Cake\ORM\TableRegistry;
  *
  * @property int $id
  * @property int $profile_id
+ * @property int|null $branch_id
  * @property string $name
  * @property string $surname
  * @property string $email
@@ -17,11 +18,11 @@ use Cake\ORM\TableRegistry;
  * @property string $password
  * @property string $cellphone
  * @property string $address
- * @property string $avatar
+ * @property string|null $avatar
+ * @property int|null $active
  *
  * @property \App\Model\Entity\Profile $profile
  */
-
 class User extends Entity
 {
   /**
@@ -34,16 +35,18 @@ class User extends Entity
    * @var array
    */
   protected $_accessible = [
-      'profile_id' => true,
-      'name' => true,
-      'surname' => true,
-      'email' => true,
-      'dni' => true,
-      'password' => true,
-      'cellphone' => true,
-      'address' => true,
-      'avatar' => true,
-      'profile' => true,
+    'profile_id' => true,
+    'branch_id' => true,
+    'name' => true,
+    'surname' => true,
+    'email' => true,
+    'dni' => true,
+    'password' => true,
+    'cellphone' => true,
+    'address' => true,
+    'avatar' => true,
+    'active' => true,
+    'profile' => true,
   ];
 
   /**
@@ -52,7 +55,7 @@ class User extends Entity
    * @var array
    */
   protected $_hidden = [
-      'password',
+    'password',
   ];
 
   protected function _setPassword($value)
@@ -60,6 +63,20 @@ class User extends Entity
     if (strlen($value)) {
       $hasher = new DefaultPasswordHasher();
       return $hasher->hash($value);
+    }
+  }
+
+  protected function _getFullName()
+  {
+    return $this->name.' '.$this->surname;
+  }
+
+  protected function _getUserState()
+  {
+    if($this->active === 1){
+      return "<span class='badge badge-primary'>Activo</span>";
+    } else {
+      return "<span class='badge badge-danger'>Inactivo</span>";
     }
   }
 
@@ -73,11 +90,11 @@ class User extends Entity
   public static function get_user(int $id)
   {
     return TableRegistry::get('users')
-      ->find('all')
-      ->contain('Profiles')
-      ->where([
-        'users.id' => $id
-      ])
-      ->first();
+    ->find('all')
+    ->contain('Profiles')
+    ->where([
+      'users.id' => $id
+    ])
+    ->first();
   }
 }

@@ -10,10 +10,10 @@
   </div>
   <div class="card-body">
     <div class="row">
-      <div class="col-sm-6 col-md-2">
+      <div class="col-lg-4 col-sm-12 d-flex justify-content-center">
         <img src="<?= $user->avatar ?>" alt="<?= $user->name." ".$user->surname; ?>" class="img-rounded img-responsive" />
       </div>
-      <div class="col-sm-6 col-md-10">
+      <div class="col-lg-8 col-sm-12">
         <h4><?= $user->name." ".$user->surname; ?></h4>
         <hr>
         <p>

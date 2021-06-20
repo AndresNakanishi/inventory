@@ -10,6 +10,7 @@ use Cake\Validation\Validator;
  * Users Model
  *
  * @property \App\Model\Table\ProfilesTable&\Cake\ORM\Association\BelongsTo $Profiles
+ * @property &\Cake\ORM\Association\BelongsTo $Branches
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
@@ -39,6 +40,9 @@ class UsersTable extends Table
         $this->belongsTo('Profiles', [
             'foreignKey' => 'profile_id',
             'joinType' => 'INNER',
+        ]);
+        $this->belongsTo('Branches', [
+            'foreignKey' => 'branch_id',
         ]);
     }
 
@@ -100,8 +104,10 @@ class UsersTable extends Table
         $validator
             ->scalar('avatar')
             ->maxLength('avatar', 200)
-            ->requirePresence('avatar', 'create')
-            ->notEmptyString('avatar');
+            ->allowEmptyString('avatar');
+
+        $validator
+            ->allowEmptyString('active');
 
         return $validator;
     }
@@ -118,6 +124,7 @@ class UsersTable extends Table
         $rules->add($rules->isUnique(['email']));
         $rules->add($rules->isUnique(['dni']));
         $rules->add($rules->existsIn(['profile_id'], 'Profiles'));
+        $rules->add($rules->existsIn(['branch_id'], 'Branches'));
 
         return $rules;
     }

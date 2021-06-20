@@ -1,11 +1,4 @@
 <?php
-/**
- * @var \App\View\AppView $this
- * @var \App\Model\Entity\MembershipType $membershipType
- */
-?>
-
-<?php
     $this->assign('title', $title);
 ?>
 <!-- Page Heading -->

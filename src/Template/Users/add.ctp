@@ -9,13 +9,24 @@
   <div class="panel-body">
     <div class="col-lg-6 col-sm-6">
       <?= $this->Form->create($user) ?>
-        <div class="form-group">
+      <div class="form-group">
             <?= $this->Form->control('profile_id', [
                 'options' => $profiles,
                 'class' => 'form-control',
                 'label' => [
                     'class' => 'control-label',
-                    'text' => 'Tipo de membresía: (Requerido)',
+                    'text' => 'Perfil: (Requerido)',
+                ],
+                'required'
+            ]) ?>
+        </div>
+        <div class="form-group">
+            <?= $this->Form->control('branch_id', [
+                'options' => $branches,
+                'class' => 'form-control',
+                'label' => [
+                    'class' => 'control-label',
+                    'text' => 'Sucursal: (Requerido)',
                 ],
                 'required'
             ]) ?>
