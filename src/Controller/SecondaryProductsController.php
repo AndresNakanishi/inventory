@@ -17,7 +17,7 @@ class SecondaryProductsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow();
+        $this->Auth->allow(['makeTemplate']);
     }
 
     /**
@@ -150,6 +150,55 @@ class SecondaryProductsController extends AppController
         $this->set('title', "Descargar plantillas de actualización de stock y precio");
     }
 
+    /* Import & Update*/
+
+    public function bulkUpdate()
+    {
+        $profile = $this->Auth->user('profile_id');
+        $branch = $this->Auth->user('branch_id');
+        $user = $this->Auth->user('id');
+
+        if ($this->request->is('post')) {
+            $data = $this->request->getData();
+
+            if ($branch === null){
+                $branch = intval($data['branch_id']);
+            }
+
+            $file = $data['file'];
+
+            // Get Sheet Data
+            $sheetData = $this->getSheetData($file['tmp_name']);
+            $conn = ConnectionManager::get('default');
+            $conn->begin();
+
+            // Insert Stock Details
+            $saveDetails = $this->saveDetails($sheetData, $branch, $user);
+
+            if($saveDetails === true){
+                $conn->commit();
+                $this->Flash->success(__('El stock fue actualizado correctamente.'));
+
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $conn->rollback();
+                $this->Flash->error(__('Hubo un problema en tratando de actualizar el stock.'));
+            }
+        }
+
+
+
+        if($profile !== 1){
+            $branches = $this->SecondaryProducts->Branches->find('list', ['conditions' => ['id' => $branch]]);
+        } else {
+            $branches = $this->SecondaryProducts->Branches->find('list');
+        }
+        $this->set(compact('branches'));
+        $this->set('title', "Actualizar Masivamente");
+    }
+
+    /** Make Template */
+
     public static function makeTemplate($branch = null, $user_id = null)
     {
         $tabIndex = 0;
@@ -215,53 +264,6 @@ class SecondaryProductsController extends AppController
 
         $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
         $writer->save('php://output');
-    }
-
-    /* Import & Update*/
-
-    public function bulkUpdate()
-    {
-        $profile = $this->Auth->user('profile_id');
-        $branch = $this->Auth->user('branch_id');
-        $user = $this->Auth->user('id');
-
-        if ($this->request->is('post')) {
-            $data = $this->request->getData();
-
-            if ($branch === null){
-                $branch = intval($data['branch_id']);
-            }
-
-            $file = $data['file'];
-
-            // Get Sheet Data
-            $sheetData = $this->getSheetData($file['tmp_name']);
-            $conn = ConnectionManager::get('default');
-            $conn->begin();
-
-            // Insert Stock Details
-            $saveDetails = $this->saveDetails($sheetData, $branch, $user);
-
-            if($saveDetails === true){
-                $conn->commit();
-                $this->Flash->success(__('El stock fue actualizado correctamente.'));
-
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $conn->rollback();
-                $this->Flash->error(__('Hubo un problema en tratando de actualizar el stock.'));
-            }
-        }
-
-
-
-        if($profile !== 1){
-            $branches = $this->SecondaryProducts->Branches->find('list', ['conditions' => ['id' => $branch]]);
-        } else {
-            $branches = $this->SecondaryProducts->Branches->find('list');
-        }
-        $this->set(compact('branches'));
-        $this->set('title', "Actualizar Masivamente");
     }
 
     /* Save Details */

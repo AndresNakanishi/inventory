@@ -15,7 +15,7 @@ class InventoryLogsController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow('createInventoryLog');
+        $this->Auth->allow();
     }
 
     public static function createInventoryLog($product, $user, $sale, $actualValue, $previousValue, $type, $action)

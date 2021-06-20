@@ -11,10 +11,8 @@ use Cake\Validation\Validator;
  *
  * @property \App\Model\Table\BrandsTable&\Cake\ORM\Association\BelongsTo $Brands
  * @property \App\Model\Table\CategoriesTable&\Cake\ORM\Association\BelongsTo $Categories
- * @property \App\Model\Table\PricelistDetailsTable&\Cake\ORM\Association\HasMany $PricelistDetails
  * @property \App\Model\Table\SalesTable&\Cake\ORM\Association\HasMany $Sales
  * @property \App\Model\Table\SecondaryProductsTable&\Cake\ORM\Association\HasMany $SecondaryProducts
- * @property \App\Model\Table\StockDetailsTable&\Cake\ORM\Association\HasMany $StockDetails
  *
  * @method \App\Model\Entity\Product get($primaryKey, $options = [])
  * @method \App\Model\Entity\Product newEntity($data = null, array $options = [])
@@ -43,22 +41,14 @@ class ProductsTable extends Table
 
         $this->belongsTo('Brands', [
             'foreignKey' => 'brand_id',
-            'joinType' => 'INNER',
         ]);
         $this->belongsTo('Categories', [
             'foreignKey' => 'category_id',
-            'joinType' => 'INNER',
-        ]);
-        $this->hasMany('PricelistDetails', [
-            'foreignKey' => 'product_id',
         ]);
         $this->hasMany('Sales', [
             'foreignKey' => 'product_id',
         ]);
         $this->hasMany('SecondaryProducts', [
-            'foreignKey' => 'product_id',
-        ]);
-        $this->hasMany('StockDetails', [
             'foreignKey' => 'product_id',
         ]);
     }

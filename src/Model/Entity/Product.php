@@ -10,8 +10,8 @@ use Cake\ORM\Entity;
  * @property string $name
  * @property float|null $kilos
  * @property int|null $active
- * @property int $brand_id
- * @property int $category_id
+ * @property int|null $brand_id
+ * @property int|null $category_id
  *
  * @property \App\Model\Entity\Brand $brand
  * @property \App\Model\Entity\Category $category
@@ -47,6 +47,10 @@ class Product extends Entity
 
     protected function _getDisplayProduct()
     {
-        return 'Producto: ' . $this->name . ' | Kilos: '. $this->kilos . ' | Marca: '.$this->brand->name;
+        $data = "Producto: $this->name | Kilos: $this->kilos";
+        if (isset($this->brand->name)){
+            $data = $data." | Marca: ".$this->brand->name;
+        }
+        return $data;
     }
 }
