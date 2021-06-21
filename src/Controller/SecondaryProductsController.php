@@ -74,7 +74,7 @@ class SecondaryProductsController extends AppController
     {
         $branch = $this->Auth->user('branch_id');
 
-        /* $secondaryProduct = TableRegistry::get('secondary_products')->find()
+        $secondaryProduct = TableRegistry::get('secondary_products')->find()
         ->select([
             "name" => "p.name",
             "branch_id" => "b.id",
@@ -96,7 +96,7 @@ class SecondaryProductsController extends AppController
         ->where(['secondary_products.id' => $id])
         ->first();
 
-        $inventoryLogStock = InventoryLogsController::getStockActionsInventoryLog($id);
+        /* $inventoryLogStock = InventoryLogsController::getStockActionsInventoryLog($id);
         $inventoryLogPrices = InventoryLogsController::getPriceActionsInventoryLog($id);
 
         if($branch !== null && $branch !== $secondaryProduct->branch_id){
