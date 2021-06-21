@@ -45,12 +45,12 @@ class InventoryLogsController extends AppController
         $inventoryLogs = TableRegistry::get('inventory_log')
         ->find('all',
         [
+            'contain' => ['Users'],
             'conditions' => [
                 'secondary_product_id' => $product,
                 'type' => "PRICE"
-                ]
+            ]
         ])
-        ->contain(['Users'])
         ->all();
         return $inventoryLogs;
     }
@@ -59,12 +59,12 @@ class InventoryLogsController extends AppController
         $inventoryLogs = TableRegistry::get('inventory_log')
         ->find('all',
         [
+            'contain' => ['Users'],
             'conditions' => [
                 'secondary_product_id' => $product,
                 'type' => "STOCK"
             ]
         ])
-        ->contain(['Users'])
         ->all();
         return $inventoryLogs;
     }

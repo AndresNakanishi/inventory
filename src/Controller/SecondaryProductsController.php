@@ -99,12 +99,12 @@ class SecondaryProductsController extends AppController
         $inventoryLogStock = InventoryLogsController::getStockActionsInventoryLog($id);
         $inventoryLogPrices = InventoryLogsController::getPriceActionsInventoryLog($id);
 
-        /* if($branch !== null && $branch !== $secondaryProduct->branch_id){
+        if($branch !== null && $branch !== $secondaryProduct->branch_id){
             $this->Flash->error(__('Denegado'));
             return $this->redirect(['action' => 'index']);
         }
 
-        $this->set(compact('secondaryProduct', 'inventoryLogStock', 'inventoryLogPrices')); */
+        $this->set(compact('secondaryProduct', 'inventoryLogStock', 'inventoryLogPrices'));
     }
 
     /**
