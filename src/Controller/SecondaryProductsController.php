@@ -96,15 +96,15 @@ class SecondaryProductsController extends AppController
         ->where(['secondary_products.id' => $id])
         ->first();
 
-        $inventoryLogStock = $this->getInventoryLog($id, "STOCK");
-        $inventoryLogPrices = $this->getInventoryLog($id, "PRICE");
+        /* $inventoryLogStock = $this->getInventoryLog($id, "STOCK");
+        $inventoryLogPrices = $this->getInventoryLog($id, "PRICE"); */
 
         if($branch !== null && $branch !== $secondaryProduct->branch_id){
             $this->Flash->error(__('Denegado'));
             return $this->redirect(['action' => 'index']);
         }
 
-        $this->set(compact('secondaryProduct', 'inventoryLogStock', 'inventoryLogPrices'));
+        $this->set(compact('secondaryProduct'));
     }
 
     /**
