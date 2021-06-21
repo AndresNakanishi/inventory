@@ -64,7 +64,7 @@ class SecondaryProductsTable extends Table
             ->allowEmptyString('id', null, 'create');
 
         $validator
-            ->integer('stock')
+            ->decimal('stock')
             ->notEmptyString('stock');
 
         $validator

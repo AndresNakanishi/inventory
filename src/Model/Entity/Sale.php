@@ -10,9 +10,10 @@ use Cake\ORM\Entity;
  * @property int $payment_method_id
  * @property int $product_id
  * @property int $branch_id
- * @property float|null $amount
+ * @property float $amount
  * @property int|null $discount
- * @property int|null $quantity
+ * @property float|null $discount_amount
+ * @property float|null $quantity
  * @property int|null $status
  * @property int $saled_by
  * @property \Cake\I18n\FrozenTime|null $saled_at
@@ -24,6 +25,7 @@ use Cake\ORM\Entity;
  * @property \App\Model\Entity\PaymentMethod $payment_method
  * @property \App\Model\Entity\Product $product
  * @property \App\Model\Entity\Branch $branch
+ * @property \App\Model\Entity\InventoryLog[] $inventory_log
  */
 class Sale extends Entity
 {
@@ -42,6 +44,7 @@ class Sale extends Entity
         'branch_id' => true,
         'amount' => true,
         'discount' => true,
+        'discount_amount' => true,
         'quantity' => true,
         'status' => true,
         'saled_by' => true,
@@ -53,6 +56,7 @@ class Sale extends Entity
         'payment_method' => true,
         'product' => true,
         'branch' => true,
+        'inventory_log' => true,
     ];
 
     protected function _getSaleStatus()

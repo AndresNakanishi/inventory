@@ -18,7 +18,7 @@ class SecondaryProductsFixture extends TestFixture
         'id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
         'product_id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'branch_id' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'stock' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => '0', 'comment' => '', 'precision' => null, 'autoIncrement' => null],
+        'stock' => ['type' => 'decimal', 'length' => 8, 'precision' => 2, 'unsigned' => false, 'null' => false, 'default' => '0.00', 'comment' => ''],
         'price' => ['type' => 'decimal', 'length' => 8, 'precision' => 2, 'unsigned' => false, 'null' => false, 'default' => '0.00', 'comment' => ''],
         'created_by' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
         'updated_by' => ['type' => 'integer', 'length' => 10, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
@@ -39,7 +39,7 @@ class SecondaryProductsFixture extends TestFixture
         ],
         '_options' => [
             'engine' => 'InnoDB',
-            'collation' => 'utf8_general_ci'
+            'collation' => 'utf8mb4_general_ci'
         ],
     ];
     // @codingStandardsIgnoreEnd
@@ -55,12 +55,12 @@ class SecondaryProductsFixture extends TestFixture
                 'id' => 1,
                 'product_id' => 1,
                 'branch_id' => 1,
-                'stock' => 1,
+                'stock' => 1.5,
                 'price' => 1.5,
                 'created_by' => 1,
                 'updated_by' => 1,
-                'created_at' => '2021-06-19 22:29:11',
-                'updated_at' => '2021-06-19 22:29:11',
+                'created_at' => '2021-06-20 22:02:20',
+                'updated_at' => '2021-06-20 22:02:20',
             ],
         ];
         parent::init();

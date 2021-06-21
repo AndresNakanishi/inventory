@@ -35,11 +35,10 @@ class SecondaryProductsController extends AppController
         if ($this->request->is('post')) {
             $data = $this->request->getData();
             $searchBranch = intval($data['branch_id']);
-            $products = ProductsController::getProductsWithStockAndPrice($searchBranch, $user);
             $session->write('is_search','1');
             $session->write('searchedBranch', $searchBranch);
         } else {
-            $products = null;
+            $products = ProductsController::getProductsWithStockAndPrice($branch, $user);
         }
 
         // Leemos si hay en sesión

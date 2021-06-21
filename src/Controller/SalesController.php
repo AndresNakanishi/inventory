@@ -101,6 +101,7 @@ class SalesController extends AppController
         $saleQuery->select([
             'sales.id',
             'sales.amount',
+            'sales.discount',
             'sales.saled_at',
             'sales.updated_at',
             'sales.status',
@@ -183,11 +184,13 @@ class SalesController extends AppController
         if ($this->request->is('post')) {
             $sale = $this->Sales->patchEntity($sale, $this->request->getData());
             $secProd = TableRegistry::get('secondary_products')->find('all', ['conditions' => ['product_id' => $sale->product_id]])->first();
-            $sale->amount = $secProd->price * $sale->quantity;
+            $total = $secProd->price * $sale->quantity;
+            $sale->discount_amount = $total * ($sale->discount / 100);
             $sale->saled_at = date('Y-m-d H:i:s');
             $sale->updated_at = date('Y-m-d H:i:s');
             $sale->saled_by = $user_id;
             $sale->updated_by = $user_id;
+            $sale->amount = $total - $sale->discount_amount;
             if($branch) {
                 $sale->branch_id = $branch;
             }
@@ -236,10 +239,14 @@ class SalesController extends AppController
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $sale = $this->Sales->patchEntity($sale, $this->request->getData());
+            $secProd = TableRegistry::get('secondary_products')->find('all', ['conditions' => ['product_id' => $sale->product_id]])->first();
             $sale->updated_by = $user_id;
             $sale->updated_at = date('Y-m-d H:i:s');
             $sale->status = 0;
             if ($this->Sales->save($sale)) {
+                $actualValue = $secProd->stock + $sale->quantity;
+                $deduceStock = SecondaryProductsController::deduceStock($secProd->id, $actualValue);
+                $stockInventoryLog = InventoryLogsController::createInventoryLog($secProd->id, $user_id, $sale->id, $actualValue, $secProd->stock, "STOCK", "CANCEL");
                 $this->Flash->success(__('Venta cancelada correctamente.'));
 
                 return $this->redirect(['action' => 'index']);

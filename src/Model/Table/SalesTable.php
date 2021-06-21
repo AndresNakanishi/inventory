@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  * @property \App\Model\Table\PaymentMethodsTable&\Cake\ORM\Association\BelongsTo $PaymentMethods
  * @property \App\Model\Table\ProductsTable&\Cake\ORM\Association\BelongsTo $Products
  * @property \App\Model\Table\BranchesTable&\Cake\ORM\Association\BelongsTo $Branches
- * @property &\Cake\ORM\Association\HasMany $InventoryLog
+ * @property \App\Model\Table\InventoryLogTable&\Cake\ORM\Association\HasMany $InventoryLog
  *
  * @method \App\Model\Entity\Sale get($primaryKey, $options = [])
  * @method \App\Model\Entity\Sale newEntity($data = null, array $options = [])
@@ -70,14 +70,19 @@ class SalesTable extends Table
 
         $validator
             ->decimal('amount')
-            ->allowEmptyString('amount');
+            ->requirePresence('amount', 'create')
+            ->notEmptyString('amount');
 
         $validator
             ->integer('discount')
             ->allowEmptyString('discount');
 
         $validator
-            ->integer('quantity')
+            ->decimal('discount_amount')
+            ->allowEmptyString('discount_amount');
+
+        $validator
+            ->decimal('quantity')
             ->allowEmptyString('quantity');
 
         $validator

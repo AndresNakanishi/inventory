@@ -48,12 +48,27 @@
                 <div class="form-group">
                     <?= $this->Form->control('quantity', [
                         'class' => 'form-control',
+                        'step' => '.05',
                         'label' => [
                             'class' => 'control-label',
                             'text' => 'Cantidad: (Requerido)',
                         ],
                         'placeholder' => 'Escribe la cantidad si no es alimento suelto',
                         'required'
+                    ]) ?>
+                </div>
+                <div class="form-group">
+                    <?= $this->Form->control('discount', [
+                        'class' => 'form-control',
+                        'label' => [
+                            'class' => 'control-label',
+                            'text' => 'Descuento: (Por defecto 0)',
+                        ],
+                        'value' => 0,
+                        'placeholder' => 'Escribe el descuento si aplica',
+                        'max' => 100,
+                        'maxlength' => 3,
+                        'onchange' => "changeHandler(this)"
                     ]) ?>
                 </div>
                 <div class="d-flex">
@@ -65,3 +80,12 @@
     </div>
     <!-- /.panel-body -->
 </div>
+<script>
+    function changeHandler(val)
+    {
+        if (Number(val.value) > 100)
+        {
+            val.value = 100
+        }
+    }
+</script>

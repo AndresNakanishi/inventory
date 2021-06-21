@@ -10,7 +10,8 @@ use Cake\Validation\Validator;
  * Users Model
  *
  * @property \App\Model\Table\ProfilesTable&\Cake\ORM\Association\BelongsTo $Profiles
- * @property &\Cake\ORM\Association\BelongsTo $Branches
+ * @property \App\Model\Table\BranchesTable&\Cake\ORM\Association\BelongsTo $Branches
+ * @property &\Cake\ORM\Association\HasMany $InventoryLog
  *
  * @method \App\Model\Entity\User get($primaryKey, $options = [])
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
@@ -44,6 +45,9 @@ class UsersTable extends Table
         $this->belongsTo('Branches', [
             'foreignKey' => 'branch_id',
         ]);
+        $this->hasMany('InventoryLog', [
+            'foreignKey' => 'user_id',
+        ]);
     }
 
     /**
@@ -72,8 +76,7 @@ class UsersTable extends Table
 
         $validator
             ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email')
+            ->allowEmptyString('email')
             ->add('email', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
 
         $validator
@@ -86,20 +89,17 @@ class UsersTable extends Table
         $validator
             ->scalar('password')
             ->maxLength('password', 200)
-            ->requirePresence('password', 'create')
-            ->notEmptyString('password');
+            ->allowEmptyString('password');
 
         $validator
             ->scalar('cellphone')
             ->maxLength('cellphone', 45)
-            ->requirePresence('cellphone', 'create')
-            ->notEmptyString('cellphone');
+            ->allowEmptyString('cellphone');
 
         $validator
             ->scalar('address')
             ->maxLength('address', 100)
-            ->requirePresence('address', 'create')
-            ->notEmptyString('address');
+            ->allowEmptyString('address');
 
         $validator
             ->scalar('avatar')

@@ -27,6 +27,7 @@ class SalesTableTest extends TestCase
         'app.PaymentMethods',
         'app.Products',
         'app.Branches',
+        'app.InventoryLog',
     ];
 
     /**

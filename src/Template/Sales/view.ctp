@@ -28,6 +28,16 @@
         <div class="col-lg-6">
             Cantidad: <strong><?= $sale->quantity ?></strong>
         </div>
+        <?php if($sale->discount > 0):?>
+            <br>
+            <div class="col-lg-6">
+                Descuento: <strong><?= $sale->discount ?>% => </strong>
+            </div>
+            <br>
+            <div class="col-lg-6">
+                Monto del Descuento: <strong><?= $this->Number->currency($sale->discount_amount) ?></strong>
+            </div>
+        <?php endif; ?>
         <hr>
         <div class="col-lg-6">
             Marca: <strong><?= $sale->b['name'] ?></strong>

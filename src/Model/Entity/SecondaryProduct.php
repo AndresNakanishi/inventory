@@ -9,7 +9,7 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $product_id
  * @property int $branch_id
- * @property int $stock
+ * @property float $stock
  * @property float $price
  * @property int $created_by
  * @property int $updated_by
