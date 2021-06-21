@@ -96,8 +96,8 @@ class SecondaryProductsController extends AppController
         ->where(['secondary_products.id' => $id])
         ->first();
 
-        $inventoryLogStock = InventoryLogsController::getStockActionsInventoryLog($id);
-        $inventoryLogPrices = InventoryLogsController::getPriceActionsInventoryLog($id);
+        $inventoryLogStock = $this->getInventoryLog($id, "STOCK");
+        $inventoryLogPrices = $this->getInventoryLog($id, "PRICE");
 
         if($branch !== null && $branch !== $secondaryProduct->branch_id){
             $this->Flash->error(__('Denegado'));
@@ -425,5 +425,20 @@ class SecondaryProductsController extends AppController
             return true;
         }
         return false;
+    }
+
+    /* Get Inventory Log */
+    private function getInventoryLog($id, $type){
+        $inventoryLogs = TableRegistry::get('inventory_log')
+        ->find('all',
+        [
+            'contain' => ['Users'],
+            'conditions' => [
+                'secondary_product_id' => $id,
+                'type' => $type
+            ]
+        ])
+        ->all();
+        return $inventoryLogs;
     }
 }

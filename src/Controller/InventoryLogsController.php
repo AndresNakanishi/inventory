@@ -40,33 +40,4 @@ class InventoryLogsController extends AppController
             return false;
         }
     }
-
-    public static function getPriceActionsInventoryLog($product){
-        $inventoryLogs = TableRegistry::get('inventory_log')
-        ->find('all',
-        [
-            'contain' => ['Users'],
-            'conditions' => [
-                'secondary_product_id' => $product,
-                'type' => "PRICE"
-            ]
-        ])
-        ->all();
-        return $inventoryLogs;
-    }
-
-    public static function getStockActionsInventoryLog($product){
-        $inventoryLogs = TableRegistry::get('inventory_log')
-        ->find('all',
-        [
-            'contain' => ['Users'],
-            'conditions' => [
-                'secondary_product_id' => $product,
-                'type' => "STOCK"
-            ]
-        ])
-        ->all();
-        return $inventoryLogs;
-    }
-
 }
