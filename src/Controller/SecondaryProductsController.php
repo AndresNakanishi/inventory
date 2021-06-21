@@ -74,7 +74,7 @@ class SecondaryProductsController extends AppController
     {
         $branch = $this->Auth->user('branch_id');
 
-        $secondaryProduct = TableRegistry::get('secondary_products')->find()
+        /* $secondaryProduct = TableRegistry::get('secondary_products')->find()
         ->select([
             "name" => "p.name",
             "branch_id" => "b.id",
@@ -104,7 +104,7 @@ class SecondaryProductsController extends AppController
             return $this->redirect(['action' => 'index']);
         }
 
-        $this->set(compact('secondaryProduct', 'inventoryLogStock', 'inventoryLogPrices'));
+        $this->set(compact('secondaryProduct', 'inventoryLogStock', 'inventoryLogPrices')); */
     }
 
     /**
