@@ -96,10 +96,10 @@ class SecondaryProductsController extends AppController
         ->where(['secondary_products.id' => $id])
         ->first();
 
-        /* $inventoryLogStock = InventoryLogsController::getStockActionsInventoryLog($id);
+        $inventoryLogStock = InventoryLogsController::getStockActionsInventoryLog($id);
         $inventoryLogPrices = InventoryLogsController::getPriceActionsInventoryLog($id);
 
-        if($branch !== null && $branch !== $secondaryProduct->branch_id){
+        /* if($branch !== null && $branch !== $secondaryProduct->branch_id){
             $this->Flash->error(__('Denegado'));
             return $this->redirect(['action' => 'index']);
         }
