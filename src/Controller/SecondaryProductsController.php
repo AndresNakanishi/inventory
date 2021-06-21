@@ -20,6 +20,11 @@ class SecondaryProductsController extends AppController
         $this->Auth->allow(['makeTemplate']);
     }
 
+    public function isAuthorized($user)
+    {
+        return parent::isAuthorized($user);
+    }
+
     /**
      * Index method
      *
@@ -70,12 +75,29 @@ class SecondaryProductsController extends AppController
         $branch = $this->Auth->user('branch_id');
 
 
-        $secondaryProduct = $this->SecondaryProducts->get($id, [
-            'contain' => ['Products', 'Branches'],
-        ]);
+        $secondaryProduct = TableRegistry::get('secondary_products')->find()
+        ->select([
+            "name" => "p.name",
+            "stock" => "IFNULL(secondary_products.stock, 0)",
+            "price" => "IFNULL(secondary_products.price, 0)",
+        ])
+        ->join([[
+            'table' => 'branches',
+            'alias' => 'b',
+            'type' => 'LEFT',
+            'conditions' => ['secondary_products.branch_id=b.id'],
+        ]])
+        ->join([[
+            'table' => 'products',
+            'alias' => 'p',
+            'type' => 'LEFT',
+            'conditions' => ['secondary_products.product_id=p.id'],
+        ]])
+        ->where(['secondary_products.id' => $id])
+        ->first();
 
-        $inventoryLogStock = InventoryLogsController::getStockActionsInventoryLog($secondaryProduct->id);
-        $inventoryLogPrices = InventoryLogsController::getPriceActionsInventoryLog($secondaryProduct->id);
+        $inventoryLogStock = InventoryLogsController::getStockActionsInventoryLog($id);
+        $inventoryLogPrices = InventoryLogsController::getPriceActionsInventoryLog($id);
 
         if($branch !== null && $branch !== $secondaryProduct->branch_id){
             $this->Flash->error(__('Imposible'));

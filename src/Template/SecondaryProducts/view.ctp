@@ -1,5 +1,5 @@
 <h1>
-    <?= $secondaryProduct->product->name ?> - Stock Actual: <?= $secondaryProduct->stock ?> - Precio Actual: <?= $this->Number->currency($secondaryProduct->price) ?>
+    <?= $secondaryProduct->name ?> - Stock Actual: <?= $secondaryProduct->stock ?> - Precio Actual: <?= $this->Number->currency($secondaryProduct->price) ?>
 </h1>
 <hr>
 <!-- DataTales Example -->
@@ -26,7 +26,7 @@
                     <?php foreach ($inventoryLogStock as $inv_log): ?>
                         <tr>
                             <td><?= $inv_log->id ?></td>
-                            <td><?= $secondaryProduct->product->name ?></td>
+                            <td><?= $secondaryProduct->name ?></td>
                             <td><?= $inv_log->previous_value ?></td>
                             <td><?= $inv_log->delta ?></td>
                             <td><?= $inv_log->user->name." ".$inv_log->user->surname ?></td>
@@ -67,7 +67,7 @@
                     <?php foreach ($inventoryLogPrices as $inv_log): ?>
                         <tr>
                             <td><?= $inv_log->id ?></td>
-                            <td><?= $secondaryProduct->product->name ?></td>
+                            <td><?= $secondaryProduct->name ?></td>
                             <td><?= $inv_log->previous_value ?></td>
                             <td><?= $inv_log->delta ?></td>
                             <td><?= $inv_log->user->name." ".$inv_log->user->surname ?></td>
