@@ -96,15 +96,15 @@ class SecondaryProductsController extends AppController
         ->where(['secondary_products.id' => $id])
         ->first();
 
-        /* $inventoryLogStock = $this->getInventoryLog($id, "STOCK");
-        $inventoryLogPrices = $this->getInventoryLog($id, "PRICE"); */
+        $inventoryLogStock = $this->getInventoryLog($id, "STOCK");
+        $inventoryLogPrices = $this->getInventoryLog($id, "PRICE");
 
         if($branch !== null && $branch !== $secondaryProduct->branch_id){
             $this->Flash->error(__('Denegado'));
             return $this->redirect(['action' => 'index']);
         }
 
-        $this->set(compact('secondaryProduct'));
+        $this->set(compact('secondaryProduct', 'inventoryLogStock', 'inventoryLogPrices'));
     }
 
     /**
@@ -430,14 +430,22 @@ class SecondaryProductsController extends AppController
     /* Get Inventory Log */
     private function getInventoryLog($id, $type){
         $inventoryLogs = TableRegistry::get('inventory_log')
-        ->find('all',
-        [
-            'contain' => ['Users'],
-            'conditions' => [
-                'secondary_product_id' => $id,
-                'type' => $type
-            ]
+        ->find()
+        ->select([
+            "id" => "inventory_log.id",
+            "previous_value" => "inventory_log.previous_value",
+            "delta" => "inventory_log.delta",
+            "user" => "CONCAT(u.name,' ',u.surname)",
+            "action" => "inventory_log.action",
+            "changed_at" => "inventory_log.changed_at",
         ])
+        ->join([[
+            'table' => 'users',
+            'alias' => 'u',
+            'type' => 'LEFT',
+            'conditions' => ['inventory_log.user_id=u.id'],
+        ]])
+        ->where(['inventory_log.secondary_product_id' => $id, 'inventory_log.type' => $type])
         ->all();
         return $inventoryLogs;
     }
