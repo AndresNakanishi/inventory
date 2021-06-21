@@ -200,6 +200,9 @@ class UsersController extends AppController
             $user->avatar = "https://ui-avatars.com/api/?size=256&font-size=0.33&background=6f42c1&color=fff&name=" . $user->name . "%20" . $user->surname;
             $user->active = 1;
             $user->password = $user->dni;
+            if($user->profile_id === 1){
+                $user->branch_id = null;
+            }
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Usuario agregado exitosamente.'));
                 return $this->redirect(['action' => 'index']);
