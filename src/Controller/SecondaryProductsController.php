@@ -74,10 +74,10 @@ class SecondaryProductsController extends AppController
     {
         $branch = $this->Auth->user('branch_id');
 
-
         $secondaryProduct = TableRegistry::get('secondary_products')->find()
         ->select([
             "name" => "p.name",
+            "branch_id" => "b.id",
             "stock" => "IFNULL(secondary_products.stock, 0)",
             "price" => "IFNULL(secondary_products.price, 0)",
         ])
@@ -100,8 +100,8 @@ class SecondaryProductsController extends AppController
         $inventoryLogPrices = InventoryLogsController::getPriceActionsInventoryLog($id);
 
         if($branch !== null && $branch !== $secondaryProduct->branch_id){
-            $this->Flash->error(__('Imposible'));
-            return $this->redirect($redirect);
+            $this->Flash->error(__('Denegado'));
+            return $this->redirect(['action' => 'index']);
         }
 
         $this->set(compact('secondaryProduct', 'inventoryLogStock', 'inventoryLogPrices'));
